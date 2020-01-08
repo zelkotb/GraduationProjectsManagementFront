@@ -1,0 +1,27 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidenav role="navigation">
+        Sidenav content
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <div fxHide.gt-xs>
+                <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+            </div>
+            <div>
+                <a routerLink="/"> LOGO </a>
+            </div>
+            <div fxHide.xs fxFlex fxLayout fxLayoutAlign="flex-end">
+                <ul fxLayout fxLayoutGap="20px" class="navbar-nav">
+                    <li><a routerLink="/documents" routerLinkActive="active">Docs</a></li>
+                    <li><a routerLink="/lists" routerLinkActive="active">Lists</a></li>
+                    <li><a routerLink="/profil" routerLinkActive="active">Profil</a></li>
+                    <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
+                </ul>
+            </div>
+        </mat-toolbar>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

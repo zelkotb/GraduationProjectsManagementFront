@@ -1,0 +1,7 @@
+table {
+    width: 100%;
+}
+@media (max-width: 640px) {
+    td{font-size: 9px;}
+    th{font-size: 9px;}
+}

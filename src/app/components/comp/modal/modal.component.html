@@ -1,0 +1,12 @@
+<h1 mat-dialog-title class="modal-title">Error Occured</h1>
+<div mat-dialog-content>
+    <div class="modal-body">
+        <div class="d-flex justify-content-center">
+            <img src="assets/img/xImg.png" style="width: 40%; height: 40%;">
+        </div><br>
+        <p>{{data.error}}</p>
+    </div> 
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="retry()" type="button">please retry</button>
+    </div>
+</div>
