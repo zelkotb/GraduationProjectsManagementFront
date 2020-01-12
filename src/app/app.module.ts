@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import {MaterialModule} from './material.module';
 import {RouteModule} from './route.module';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
@@ -11,6 +11,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StudentsComponent } from './components/student/students/students.component';
 import { ModalComponent } from './components/comp/modal/modal.component';
 import { ListsComponent } from './components/lists/lists.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { TokenInterceptor } from './token-interceptor';
+import { AccountsComponent } from './components/account/accounts/accounts.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,8 @@ import { ListsComponent } from './components/lists/lists.component';
     StudentsComponent,
     ModalComponent,
     ListsComponent,
+    LoginComponent,
+    AccountsComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +33,11 @@ import { ListsComponent } from './components/lists/lists.component';
     HttpClientModule,
     FlexLayoutModule
   ],
-  providers: [],
+  providers: [{
+    provide : HTTP_INTERCEPTORS,
+    useClass : TokenInterceptor,
+    multi : true
+  }],
   bootstrap: [AppComponent],
   entryComponents : [ModalComponent]
 })

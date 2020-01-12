@@ -10,6 +10,7 @@ export class ListsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    //window.location.reload();
   }
 
 }

@@ -22,6 +22,7 @@ a{
 }
 
 a:hover{
+    cursor: pointer;
     color: #aee4ff;
     border-bottom: 2px solid #aee4ff;
 }

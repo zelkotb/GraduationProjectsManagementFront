@@ -12,10 +12,11 @@
             </div>
             <div fxHide.xs fxFlex fxLayout fxLayoutAlign="flex-end">
                 <ul fxLayout fxLayoutGap="20px" class="navbar-nav">
-                    <li><a routerLink="/documents" routerLinkActive="active">Docs</a></li>
-                    <li><a routerLink="/lists" routerLinkActive="active">Lists</a></li>
-                    <li><a routerLink="/profil" routerLinkActive="active">Profil</a></li>
-                    <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
+                    <li><a routerLink="/documents" routerLinkActive="active">Documents</a></li>
+                    <li *ngIf="authService.isLoggedIn()"><a routerLink="/lists" routerLinkActive="active">Lists</a></li>
+                    <li *ngIf="authService.isLoggedIn()"><a routerLink="/profil" routerLinkActive="active">Profil</a></li>
+                    <li *ngIf="!authService.isLoggedIn()"><a routerLink="/login" routerLinkActive="active">Login</a></li>
+                    <li *ngIf="authService.isLoggedIn()"><a (click) = "OnLogout()">Logout</a></li>
                 </ul>
             </div>
         </mat-toolbar>

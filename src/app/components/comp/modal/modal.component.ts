@@ -15,6 +15,7 @@ export class ModalComponent implements OnInit {
   }
 
   retry(){
-    window.location.reload();
+    //window.location.reload();
+    //this.router.navigate(['/lists'])
   }
 }

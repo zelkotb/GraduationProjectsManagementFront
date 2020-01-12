@@ -1,0 +1,33 @@
+<div class="container col-md-5 p-4">    
+    <mat-card>
+        <mat-card-header fxLayout="column" fxLayoutAlign="center center">
+          <mat-card-title>Authentication</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <!-- login form-->
+            <form fxLayout="column" name="form" #f="ngForm" (ngSubmit)="f.valid && Onlogin()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter your Login</mat-label>
+                    <input  [(ngModel)]="account.login" required name = "login" matInput #input maxlength="20" placeholder="Placeholder">
+                    <mat-icon matSuffix>school</mat-icon>
+                    <mat-hint align="end">{{input.value?.length || 0}}/20</mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter your password</mat-label>
+                    <input [(ngModel)]="account.password" required name = "password" matInput #password maxlength="20" placeholder="Placeholder" [type]="hide ? 'password' : 'text'">
+                    <mat-icon class="password_icon" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" 
+                        [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-hint align="end">{{password.value?.length || 0}}/20</mat-hint>
+                    <mat-hint align="start">* means required</mat-hint>
+                </mat-form-field>
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    <!--spinner-->
+                    <button [disabled]="f.invalid" type="submit" class="submit_button" mat-fab color="primary">Submit</button>
+                    <div *ngIf="download==true">
+                        <mat-spinner [diameter]=70></mat-spinner>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
