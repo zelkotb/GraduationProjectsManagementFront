@@ -6,6 +6,8 @@ import { Observable, throwError } from 'rxjs';
 import { tap, map, catchError} from 'rxjs/operators';
 import { Account } from '../models/account';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { MatDialog } from '@angular/material';
+import { ModalComponent } from '../components/comp/modal/modal.component';
 
 const url = environment.url;
 

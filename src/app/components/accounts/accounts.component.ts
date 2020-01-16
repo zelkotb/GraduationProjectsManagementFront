@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { AccountService } from 'src/app/services/account.service';
-import { ModalComponent } from '../../comp/modal/modal.component';
+import { ModalComponent } from '../comp/modal/modal.component';
 
 @Component({
   selector: 'app-accounts',
@@ -10,7 +10,7 @@ import { ModalComponent } from '../../comp/modal/modal.component';
 })
 export class AccountsComponent implements OnInit {
 
-  displayedColumns: string[] = ['login', 'email', 'owner', 'roles'];
+  displayedColumns: string[] = ['login', 'email', 'roles'];
   accounts = new MatTableDataSource();
   error : string;
   download = false;
@@ -22,7 +22,7 @@ export class AccountsComponent implements OnInit {
     this.accounts.paginator = paginator;
   }
 
-  constructor(private accountService : AccountService, private errorDialog : MatDialog) { }
+  constructor(private accountService : AccountService) { }
 
 
   ngOnInit() {
@@ -30,13 +30,9 @@ export class AccountsComponent implements OnInit {
     this.accountService.getAccounts().subscribe(
      (response) => {
        this.accounts.data = response.accounts
-       console.log(this.accounts.data)
        this.download = false;
       },
      (e) => {
-       this.errorDialog.open(ModalComponent,{
-         data : e.error
-       })
        this.download = false;
      }
    )

@@ -13,16 +13,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
-
-
-
-
-
-
-
-
-
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -40,7 +34,11 @@ import {MatMenuModule} from '@angular/material/menu';
         MatIconModule,
         MatCardModule,
         MatButtonModule,
-        MatMenuModule
+        MatMenuModule,
+        MatCheckboxModule,
+        MatButtonToggleModule,
+        MatSlideToggleModule,
+        MatTooltipModule
     ],
     exports : [
         MatTableModule,
@@ -56,7 +54,11 @@ import {MatMenuModule} from '@angular/material/menu';
         MatIconModule,
         MatCardModule,
         MatButtonModule,
-        MatMenuModule
+        MatMenuModule,
+        MatCheckboxModule,
+        MatButtonToggleModule,
+        MatSlideToggleModule,
+        MatTooltipModule
     ]
 
 })

@@ -1,0 +1,9 @@
+a{
+    text-decoration: none;
+    font-family: 'Roboto Condensed', sans-serif;
+    padding: 5px;
+}
+
+a:hover{
+    cursor: pointer;
+}

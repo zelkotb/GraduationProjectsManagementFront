@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {MaterialModule} from './material.module';
 import {RouteModule} from './route.module';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -13,7 +13,10 @@ import { ModalComponent } from './components/comp/modal/modal.component';
 import { ListsComponent } from './components/lists/lists.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { TokenInterceptor } from './token-interceptor';
-import { AccountsComponent } from './components/account/accounts/accounts.component';
+import { AccountComponent } from './components/account/account.component';
+import { AccountsComponent } from './components/accounts/accounts.component';
+import { TrueModalComponent } from './components/comp/true-modal/true-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -23,6 +26,8 @@ import { AccountsComponent } from './components/account/accounts/accounts.compon
     ListsComponent,
     LoginComponent,
     AccountsComponent,
+    AccountComponent,
+    TrueModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,8 @@ import { AccountsComponent } from './components/account/accounts/accounts.compon
     RouteModule,
     FormsModule,
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ReactiveFormsModule
   ],
   providers: [{
     provide : HTTP_INTERCEPTORS,
@@ -39,6 +45,6 @@ import { AccountsComponent } from './components/account/accounts/accounts.compon
     multi : true
   }],
   bootstrap: [AppComponent],
-  entryComponents : [ModalComponent]
+  entryComponents : [ModalComponent,TrueModalComponent]
 })
 export class AppModule { }

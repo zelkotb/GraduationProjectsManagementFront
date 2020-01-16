@@ -1,0 +1,58 @@
+<div class="container col-md-7 p-4">    
+    <mat-card *ngIf="downloadBig==false">
+        <mat-card-header fxLayout="column" fxLayoutAlign="center center">
+          <mat-card-title>Account informations</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <!-- login form-->
+            <form fxLayout="column" #f="ngForm" (ngSubmit)="f.valid && updateAccount()">
+                <mat-form-field> 
+                    <input  [(ngModel)]="account.login" #l="ngModel" name="login" matInput placeholder="Login" required>
+                    <mat-icon *ngIf="l.errors" color="warn" matSuffix>school</mat-icon>
+                    <mat-icon *ngIf="!l.errors"color="primary" matSuffix>school</mat-icon>
+                    <mat-hint align="end">{{l.value?.length || 0}}/20</mat-hint>
+                    <mat-error *ngIf="l.errors?.required">
+                        Login is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field><br>
+                <mat-form-field>
+                    <input [(ngModel)]="account.email" #e="ngModel" name="email" matInput placeholder="Email" required email>
+                    <mat-icon *ngIf="e.errors" color="warn" matSuffix>local_post_office</mat-icon>
+                    <mat-icon *ngIf="!e.errors" color="primary" matSuffix>local_post_office</mat-icon>
+                    <mat-error *ngIf="e.errors?.email && !e.errors?.required">
+                        Please enter a valid email address
+                    </mat-error>
+                    <mat-error *ngIf="e.errors?.required">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field><br>
+                <mat-slide-toggle
+                    [color]="primary"
+                    [checked]="checked"
+                    (change)="showHideRoles()"> 
+                    Show/Hide roles
+                </mat-slide-toggle>
+                <div *ngIf="checked" class="row justify-content-md-center">
+                    <div class="p-2" *ngFor="let r of mapRoles | keyvalue">
+                    <mat-checkbox name ="role" class="mat-menu-item" [checked]="r.value"
+                    (change)="valueChange(r.key,$event)">
+                    {{r.key.role}}
+                </mat-checkbox>  
+                    </div>
+                </div><br><br>
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    <!--spinner -->
+                    <button type="submit" class="submit_button" [disabled]="!f.valid" mat-fab color="primary">Submit</button>
+                    <div *ngIf="download==true">
+                        <mat-spinner [diameter]=70></mat-spinner>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <!--spinner-->
+    <div style="margin-top:6%; height: 400px;" fxLayoutAlign="center center" *ngIf="downloadBig==true">
+        <mat-spinner fxFlex="30%"></mat-spinner>
+    </div>
+</div>
