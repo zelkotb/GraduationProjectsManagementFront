@@ -1,5 +1,6 @@
 .container{
-    margin-top: 3%;
+    height: 100%;
+    width: 100%;
 }
 mat-spinner{
 margin-top: -63px;

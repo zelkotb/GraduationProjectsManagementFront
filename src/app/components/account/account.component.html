@@ -1,11 +1,11 @@
-<div class="container col-md-7 p-4">    
-    <mat-card *ngIf="downloadBig==false">
+<div class="container col-md-12">
+    <div *ngIf="downloadBig==false">
         <mat-card-header fxLayout="column" fxLayoutAlign="center center">
           <mat-card-title>Account informations</mat-card-title>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content mat-dialog-content>
             <!-- login form-->
-            <form fxLayout="column" #f="ngForm" (ngSubmit)="f.valid && updateAccount()">
+            <form fxLayout="column" #f="ngForm" (ngSubmit)="f.valid && registerOrUpdate()">
                 <mat-form-field> 
                     <input  [(ngModel)]="account.login" #l="ngModel" name="login" matInput placeholder="Login" required>
                     <mat-icon *ngIf="l.errors" color="warn" matSuffix>school</mat-icon>
@@ -46,10 +46,10 @@
                     <div *ngIf="download==true">
                         <mat-spinner [diameter]=70></mat-spinner>
                     </div>
-                </div>
+                </div><br>
             </form>
         </mat-card-content>
-    </mat-card>
+    </div>
 
     <!--spinner-->
     <div style="margin-top:6%; height: 400px;" fxLayoutAlign="center center" *ngIf="downloadBig==true">

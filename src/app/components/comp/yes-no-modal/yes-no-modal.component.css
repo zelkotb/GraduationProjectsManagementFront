@@ -1,0 +1,16 @@
+mat-icon {
+    height: 100%;
+    font-size: 150px;
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    mat-icon {
+        font-size: 100px;
+    }
+    .good_msg{
+        width: 100%;
+        font-size: 15px;
+        height: 100%;
+    }
+}

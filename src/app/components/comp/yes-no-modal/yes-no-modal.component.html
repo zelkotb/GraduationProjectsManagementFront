@@ -1,0 +1,17 @@
+<div class="container" fxLayout="column" fxLayoutAlign="center center">
+    <div mat-dialog-content>
+        <div class="modal-body">
+            <mat-icon color="warn"  fxLayout="column"  fxLayoutAlign="center center">error_outline</mat-icon><br>
+            <p class="good_msg" fxLayout="column"  fxLayoutAlign="center center">
+                Are you sure you want to generate a new password for {{data.login}}?
+            </p>
+        </div> 
+    </div>
+    <div mat-dialog-actions>
+        <button *ngIf="download==false" mat-button (click)="onNoClick()">No Thanks</button>
+        <button *ngIf="download==false" mat-button (click)="onYesClick(data.id)">Yes</button>
+        <div fxLayoutAlign="center center" *ngIf="download==true">
+            <mat-spinner [diameter]=40></mat-spinner> 
+        </div>
+    </div>
+</div>

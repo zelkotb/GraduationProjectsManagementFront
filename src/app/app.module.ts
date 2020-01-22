@@ -16,6 +16,8 @@ import { TokenInterceptor } from './token-interceptor';
 import { AccountComponent } from './components/account/account.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { TrueModalComponent } from './components/comp/true-modal/true-modal.component';
+import { YesNoModalComponent } from './components/comp/yes-no-modal/yes-no-modal.component';
+import { YesNoDeleteModalComponent } from './components/comp/yes-no-delete-modal/yes-no-delete-modal.component';
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import { TrueModalComponent } from './components/comp/true-modal/true-modal.comp
     AccountsComponent,
     AccountComponent,
     TrueModalComponent,
+    YesNoModalComponent,
+    YesNoDeleteModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +49,6 @@ import { TrueModalComponent } from './components/comp/true-modal/true-modal.comp
     multi : true
   }],
   bootstrap: [AppComponent],
-  entryComponents : [ModalComponent,TrueModalComponent]
+  entryComponents : [ModalComponent,TrueModalComponent,AccountComponent,YesNoModalComponent,YesNoDeleteModalComponent] 
 })
 export class AppModule { }

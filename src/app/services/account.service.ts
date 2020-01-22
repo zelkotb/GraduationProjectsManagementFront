@@ -32,8 +32,32 @@ export class AccountService {
     )
   }
 
+  register(account : Account):Observable<any>{
+    return this.http.post(url + "accounts/register",account,{observe : 'response'}).pipe(
+      catchError(e => {
+        return throwError(e);
+      })
+    )
+  }
+
   updateAccount(id : number, account : Account):Observable<any>{
     return this.http.put(url + "accounts/"+id,account,{observe : 'response'}).pipe(
+      catchError(e => {
+        return throwError(e);
+      })
+    )
+  }
+
+  changePassword(id : number){
+    return this.http.get(url + "accounts/change/"+id).pipe(
+      catchError(e => {
+        return throwError(e);
+      })
+    )
+  }
+
+  deleteAccount(id : number){
+    return this.http.delete(url + "accounts/" + id).pipe(
       catchError(e => {
         return throwError(e);
       })

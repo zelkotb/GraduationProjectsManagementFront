@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AccountService } from 'src/app/services/account.service';
 import { Account } from 'src/app/models/account';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { ModalComponent } from '../comp/modal/modal.component';
 import { Role } from 'src/app/models/role';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,26 +18,29 @@ export class AccountComponent implements OnInit {
   download = false;
   checked = false;
   downloadBig = false;
-  id : any;
+  @Input() id : any;
   roles = [{id: 1, role: "user"},{id: 2, role: "admin"},{id: 3, role: "professor"},{id: 4, role: "student"}]
   mapRoles;
-  constructor(private router : Router, private accountService : AccountService,  private dialog : MatDialog, private activatedRoute : ActivatedRoute) { }
+  constructor(private router : Router, private accountService : AccountService,  
+    private dialog : MatDialog, private activatedRoute : ActivatedRoute, public dialogRef: MatDialogRef<AccountComponent>) { }
 
   ngOnInit() {
-    this.id= this.activatedRoute.snapshot.paramMap.get('id');
+    //this.id= this.activatedRoute.snapshot.paramMap.get('id');
     this.account = new Account();
-    this.downloadBig = true;
-    this.accountService.getAccount(this.id).subscribe(
-      (response) => {
-        this.downloadBig = false;
-        this.account = response.account},
-      (e) => {
-        this.downloadBig = false;
-        this.dialog.open(ModalComponent,{
-          data : e.error
-        })
-      }
-    )
+    if(this.id){
+      this.downloadBig = true;
+      this.accountService.getAccount(this.id).subscribe(
+        (response) => {
+          this.downloadBig = false;
+          this.account = response.account},
+        (e) => {
+          this.downloadBig = false;
+          this.dialog.open(ModalComponent,{
+            data : e.error
+          })
+        }
+      )
+    }
   }
 
 
@@ -54,25 +57,45 @@ export class AccountComponent implements OnInit {
   }
 
   showRoles(){
-    if(!this.mapRoles){
-      this.mapRoles = new Map<Role,boolean>();
-      this.account.roles.forEach(userRole => {
-      this.mapRoles.set(userRole,true);
-      var removeIndex = this.roles.map(r => r.id).indexOf(userRole.id);
-      this.roles.splice(removeIndex,1);
-    })
-    this.roles.forEach(role => {
-      this.mapRoles.set(role,false);
-    });
+    if(this.id){
+      if(!this.mapRoles){
+        this.mapRoles = new Map<Role,boolean>();
+        this.account.roles.forEach(userRole => {
+        this.mapRoles.set(userRole,true);
+        var removeIndex = this.roles.map(r => r.id).indexOf(userRole.id);
+        this.roles.splice(removeIndex,1);
+      })
+      this.roles.forEach(role => {
+        this.mapRoles.set(role,false);
+      });
+      }
+    }else{
+      if(!this.mapRoles){
+        this.mapRoles = new Map<Role,boolean>();
+        this.roles.forEach(role => {
+        this.mapRoles.set(role,false);
+        });
+      }
     }
   }
 
   getUserRoles(){
-    if(this.mapRoles){
+    if(this.id){
+      if(this.mapRoles){
+        this.account.roles = [];
+        for (let key of this.mapRoles.keys()){
+          if(this.mapRoles.get(key)==true){
+            this.account.roles.push(key);
+          }
+        }
+      }
+    }else{
       this.account.roles = [];
-      for (let key of this.mapRoles.keys()){
-        if(this.mapRoles.get(key)==true){
-          this.account.roles.push(key);
+      if(this.mapRoles){
+        for (let key of this.mapRoles.keys()){
+          if(this.mapRoles.get(key)==true){
+            this.account.roles.push(key);
+          }
         }
       }
     }
@@ -93,11 +116,10 @@ export class AccountComponent implements OnInit {
     this.accountService.updateAccount(this.id,this.account).subscribe(
       (response) => {
       this.download=false;
-      console.log(response); 
-      this.router.navigate(['/lists']);
       this.dialog.open(TrueModalComponent,{
-        data : response
+        data : {message : response.body.message}
       })
+      this.dialogRef.close();
       },
     (e) => {
       this.download=false;
@@ -105,6 +127,33 @@ export class AccountComponent implements OnInit {
         data : {error : e.error.errors}
       })
     })
+  }
+
+  register(){
+    this.download=true;
+    this.getUserRoles();
+    this.accountService.register(this.account).subscribe(
+      (response) => {
+      this.download=false;
+      this.dialog.open(TrueModalComponent,{
+        data : {message : response.body.message}
+      })
+      this.dialogRef.close();
+      },
+    (e) => {
+      this.download=false;
+      this.dialog.open(ModalComponent,{
+        data : {error : e.error.errors}
+      })
+    })
+  }
+
+  registerOrUpdate(){
+    if(this.id){
+      this.updateAccount();
+    }else{
+      this.register();
+    }
   }
 
 }

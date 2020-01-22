@@ -7,3 +7,15 @@ a{
 a:hover{
     cursor: pointer;
 }
+
+th.mat-header-cell,td.mat-cell{
+    text-align: center;
+}
+
+td.sorted{
+    text-align: left;
+}
+
+tr.mat-row:hover{
+    background-color: rgb(241, 241, 241);
+}

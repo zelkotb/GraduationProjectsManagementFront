@@ -12,33 +12,61 @@
         <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
     </div>
-  
+
+    <div fxLayoutAlign="center center">
+      <button matTooltip="new account" (click)="openDialogRegister()" mat-raised-button color="primary">Register</button>
+    </div><br>
     <!-- table and pagination if screen is big-->
     <div fxHide.xs *ngIf="accounts.data?.length > 0  && download==false">
   
       <table mat-table [dataSource]="accounts" class="col-12" matSort>
   
-        <!-- login Column -->
+        <!-- login Column [routerLink]="['../account', element.id]"-->
         <ng-container matColumnDef="login">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Login </th>
-          <td mat-cell *matCellDef="let element">
-            <a matTooltip="modify account" [routerLink]="['../account', element.id]"> {{element.login}} </a>
+          <td class="sorted" mat-cell *matCellDef="let element">
+            <a matTooltip="Edit account" (click)="openDialog(element.id)" > {{element.login}} </a>
           </td>
         </ng-container>
         
         <!-- email Column -->
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-          <td mat-cell *matCellDef="let element"> {{element.email}}</td>
+          <td class="sorted" mat-cell *matCellDef="let element"> {{element.email}}</td>
+        </ng-container>
+
+        <!-- password generation Column -->
+        <ng-container matColumnDef="password">
+          <th mat-header-cell *matHeaderCellDef> Password </th>
+          <td mat-cell *matCellDef="let element">
+            <button (click)="generatePassword(element.id,element.login)" matTooltip="generate a password" mat-button>
+              <mat-icon matSuffix>lock_open</mat-icon>
+            </button>
+          </td>
         </ng-container>
   
         <!-- roles Column -->
         <ng-container matColumnDef="roles">
           <th mat-header-cell *matHeaderCellDef> roles </th>
-          <td mat-cell *matCellDef="let element"><button mat-button [matMenuTriggerFor]="menu">Click me</button>
+          <td mat-cell *matCellDef="let element">
+            <button matTooltip="show roles" mat-button [matMenuTriggerFor]="menu">
+              <mat-icon matSuffix>supervisor_account</mat-icon>
+            </button>
             <mat-menu #menu="matMenu">
               <button *ngFor ="let role of element.roles"mat-menu-item>{{role.role}}</button>
-            </mat-menu></td>
+              <button *ngIf ="element.roles?.length == 0"mat-menu-item>no roles to show</button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <!-- delete Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> **** </th>
+          <td mat-cell *matCellDef="let element">
+            <button (click)="delete(element.id,element.login)" matTooltip="delete account" mat-button>
+              <mat-icon matSuffix>delete</mat-icon>
+            </button>
+          </td>
         </ng-container>
   
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -52,7 +80,7 @@
       fxLayoutAlign="center center" [pageSizeOptions]="[10, 20, 20]" [pageSize]="2" showFirstLastButtons></mat-paginator>
   
     <!--spinner-->
-    <div style="margin-top:6%; height: 400px;" fxLayoutAlign="center center" *ngIf="download==true">
+    <div fxLayoutAlign="center center" *ngIf="download==true">
       <mat-spinner fxFlex="30%"></mat-spinner>
     </div>
       
