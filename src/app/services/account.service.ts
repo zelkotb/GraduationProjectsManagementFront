@@ -32,6 +32,14 @@ export class AccountService {
     )
   }
 
+  getAccountId(login : string):Observable<any>{
+    return this.http.post(url + "accounts",login,{observe : 'response'}).pipe(
+      catchError(e => {
+        return throwError(e);
+      })
+    )
+  }
+
   register(account : Account):Observable<any>{
     return this.http.post(url + "accounts/register",account,{observe : 'response'}).pipe(
       catchError(e => {

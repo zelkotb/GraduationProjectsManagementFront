@@ -1,0 +1,77 @@
+<div class="container col-md-6 p-4">
+    <mat-card class="example-card">
+        <mat-card-header fxLayout="column" fxLayoutAlign="center center">
+            <mat-card-title>
+                Student informations
+            </mat-card-title>
+        </mat-card-header><br>
+        <mat-card-content mat-dialog-content>
+            <!-- name form-->
+            <form fxLayout="column" #f="ngForm" (ngSubmit)="f.valid && saveStudent()">
+                <mat-form-field appearance="outline"> 
+                    <mat-label>Enter your Name here</mat-label>
+                    <input maxlength="30" [(ngModel)]="student.name" #n="ngModel" name="name" matInput placeholder="Name" required>
+                    <mat-icon matSuffix>person</mat-icon>
+                    <mat-hint align="end">{{n.value?.length || 0}}/30</mat-hint>
+                    <mat-error *ngIf="n.errors?.required">
+                        Name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field><br>
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter your LastName here</mat-label>
+                    <input maxlength="30" [(ngModel)]="student.lastName" #l="ngModel" name="lastName" matInput placeholder="LastName" required>
+                    <mat-icon matSuffix>person</mat-icon>
+                    <mat-hint align="end">{{l.value?.length || 0}}/30</mat-hint>
+                    <mat-error *ngIf="l.errors?.required">
+                        lastName is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <div class="justify-content-center">
+                    <mat-form-field class="col-6">
+                        <span matPrefix>+212 &nbsp;</span>
+                        <input type="tel" maxlength="9"  minlength="9" [(ngModel)]="student.phone" #p="ngModel" name="phone" matInput placeholder="Phone" required>
+                        <mat-icon matSuffix>phone_enabled</mat-icon>
+                        <mat-error *ngIf="p.errors?.minlength && !p.errors?.required">
+                            Please enter a valid phone number which is 9 digits after the +212
+                        </mat-error>
+                        <mat-error *ngIf="p.errors?.required">
+                            phone is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-6">
+                        <input [min]="minDate" [max]="maxDate" matInput required 
+                            [(ngModel)]="student.birthDay" #d="ngModel" name="birthday" 
+                            [matDatepicker]="picker" placeholder="birthday">
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
+                        <mat-error *ngIf="d.errors?.required">
+                            birthday is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field> 
+                </div><br>
+                <mat-form-field>
+                <mat-label>Select your Branch</mat-label>
+                <mat-select  [(ngModel)]="student.branch" #s="ngModel" name="select" required>
+                    <mat-option *ngFor="let branch of branches" [value]="branch.name">
+                    {{branch.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="s.errors?.required">
+                    Branch is <strong>required</strong>
+                </mat-error>
+                </mat-form-field><br>
+
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    <!--spinner -->
+                    <button type="submit" class="submit_button" [disabled]="!f.valid" mat-fab color="primary">Submit</button>
+                    <div *ngIf="download==true">
+                        <mat-spinner [diameter]=70></mat-spinner>
+                    </div>
+                </div><br>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+

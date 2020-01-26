@@ -6,6 +6,7 @@ import { ModalComponent } from '../comp/modal/modal.component';
 import { Role } from 'src/app/models/role';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrueModalComponent } from '../comp/true-modal/true-modal.component';
+import { RoleService } from 'src/app/services/role.service';
 
 @Component({
   selector: 'app-account',
@@ -22,7 +23,8 @@ export class AccountComponent implements OnInit {
   roles = [{id: 1, role: "user"},{id: 2, role: "admin"},{id: 3, role: "professor"},{id: 4, role: "student"}]
   mapRoles;
   constructor(private router : Router, private accountService : AccountService,  
-    private dialog : MatDialog, private activatedRoute : ActivatedRoute, public dialogRef: MatDialogRef<AccountComponent>) { }
+    private dialog : MatDialog, private activatedRoute : ActivatedRoute, public dialogRef: MatDialogRef<AccountComponent>,
+    private roleService : RoleService) { }
 
   ngOnInit() {
     //this.id= this.activatedRoute.snapshot.paramMap.get('id');
@@ -41,6 +43,11 @@ export class AccountComponent implements OnInit {
         }
       )
     }
+
+    this.roleService.getRoles().subscribe(
+      (resp) => {this.roles = resp.roles}
+    )
+
   }
 
 

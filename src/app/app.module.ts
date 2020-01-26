@@ -18,6 +18,8 @@ import { AccountsComponent } from './components/accounts/accounts.component';
 import { TrueModalComponent } from './components/comp/true-modal/true-modal.component';
 import { YesNoModalComponent } from './components/comp/yes-no-modal/yes-no-modal.component';
 import { YesNoDeleteModalComponent } from './components/comp/yes-no-delete-modal/yes-no-delete-modal.component';
+import { StudentComponent } from './components/student/student.component';
+import { SnackBarComponent } from './components/comp/snack-bar/snack-bar.component';
 
 
 @NgModule({
@@ -32,6 +34,8 @@ import { YesNoDeleteModalComponent } from './components/comp/yes-no-delete-modal
     TrueModalComponent,
     YesNoModalComponent,
     YesNoDeleteModalComponent,
+    StudentComponent,
+    SnackBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,12 +47,15 @@ import { YesNoDeleteModalComponent } from './components/comp/yes-no-delete-modal
     FlexLayoutModule,
     ReactiveFormsModule
   ],
-  providers: [{
+  providers: [
+    {
     provide : HTTP_INTERCEPTORS,
     useClass : TokenInterceptor,
     multi : true
-  }],
+    },
+    
+  ],
   bootstrap: [AppComponent],
-  entryComponents : [ModalComponent,TrueModalComponent,AccountComponent,YesNoModalComponent,YesNoDeleteModalComponent] 
+  entryComponents : [ModalComponent,TrueModalComponent,AccountComponent,YesNoModalComponent,YesNoDeleteModalComponent,SnackBarComponent] 
 })
 export class AppModule { }

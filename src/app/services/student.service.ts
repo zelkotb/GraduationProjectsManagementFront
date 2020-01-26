@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError} from 'rxjs';
 import { map, catchError} from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
+import { Student } from '../models/student';
 
 const url = environment.url;
 
@@ -16,6 +17,14 @@ export class StudentService {
 
   getClients() : Observable<any> {
     return this.http.get<any>(url+"students/").pipe(
+      catchError(e => {
+        return throwError(e);
+      })
+    )
+  }
+
+  saveStudent(student : Student){
+    return this.http.post(url + "students", student , {observe : 'response'}).pipe(
       catchError(e => {
         return throwError(e);
       })

@@ -8,8 +8,7 @@
             <form fxLayout="column" #f="ngForm" (ngSubmit)="f.valid && registerOrUpdate()">
                 <mat-form-field> 
                     <input  [(ngModel)]="account.login" #l="ngModel" name="login" matInput placeholder="Login" required>
-                    <mat-icon *ngIf="l.errors" color="warn" matSuffix>school</mat-icon>
-                    <mat-icon *ngIf="!l.errors"color="primary" matSuffix>school</mat-icon>
+                    <mat-icon color="primary" matSuffix>school</mat-icon>
                     <mat-hint align="end">{{l.value?.length || 0}}/20</mat-hint>
                     <mat-error *ngIf="l.errors?.required">
                         Login is <strong>required</strong>
@@ -17,8 +16,7 @@
                 </mat-form-field><br>
                 <mat-form-field>
                     <input [(ngModel)]="account.email" #e="ngModel" name="email" matInput placeholder="Email" required email>
-                    <mat-icon *ngIf="e.errors" color="warn" matSuffix>local_post_office</mat-icon>
-                    <mat-icon *ngIf="!e.errors" color="primary" matSuffix>local_post_office</mat-icon>
+                    <mat-icon color="primary" matSuffix>local_post_office</mat-icon>
                     <mat-error *ngIf="e.errors?.email && !e.errors?.required">
                         Please enter a valid email address
                     </mat-error>

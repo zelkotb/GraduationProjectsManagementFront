@@ -51,9 +51,11 @@ export class AuthenticationService {
       this.router.navigate(['/login']);
   }
 
-  decodeToken(){
+  getSubFromToken(){
     let token = localStorage.getItem('token');
-    return this.helper.decodeToken(token);
+    let decodedToken =  this.helper.decodeToken(token);
+    console.log(decodedToken);
+    return decodedToken.sub;
   }
 
   isLoggedIn(){

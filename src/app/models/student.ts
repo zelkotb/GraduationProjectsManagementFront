@@ -1,8 +1,12 @@
+import { Account } from './account';
+
 export class Student{
-    private id : number;
-    private name : string;
-    private lastName : string;
-    private phone : string;
-    private birthDay : string;
-    private branch
+    id : number;
+    name : string;
+    lastName : string;
+    phone : string;
+    birthDay : string;
+    branch : string;
+    graduationProject 
+    account : Account;
 }

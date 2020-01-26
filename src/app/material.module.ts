@@ -17,6 +17,12 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+
 
 
 @NgModule({
@@ -38,7 +44,11 @@ import {MatTooltipModule} from '@angular/material/tooltip';
         MatCheckboxModule,
         MatButtonToggleModule,
         MatSlideToggleModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule,
+        MatSnackBarModule
     ],
     exports : [
         MatTableModule,
@@ -58,7 +68,11 @@ import {MatTooltipModule} from '@angular/material/tooltip';
         MatCheckboxModule,
         MatButtonToggleModule,
         MatSlideToggleModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule,
+        MatSnackBarModule
     ]
 
 })
