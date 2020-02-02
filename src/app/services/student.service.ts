@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable, throwError} from 'rxjs';
 import { map, catchError} from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
@@ -29,6 +29,15 @@ export class StudentService {
         return throwError(e);
       })
     )
+  }
+
+  uploadImage(image : File) : Observable<HttpEvent<{}>>{
+    let formData = new FormData();
+    formData.append("image" , image);
+    const req = new HttpRequest("POST", url + "students/upload/", formData, {
+      reportProgress : true
+    })
+    return this.http.request(req);
   }
 
   

@@ -10,6 +10,7 @@ import { AccountComponent } from '../account/account.component';
 import { TrueModalComponent } from '../comp/true-modal/true-modal.component';
 import { ModalComponent } from '../comp/modal/modal.component';
 import { SnackBarComponent } from '../comp/snack-bar/snack-bar.component';
+import { HttpEventType } from '@angular/common/http';
 
 
 @Component({
@@ -26,6 +27,8 @@ export class StudentComponent implements OnInit {
   download = false;
   account;
   durationInSeconds = 5;
+  selectedImg : File;
+  progress = 0;
 
   constructor(private studentService : StudentService, private branchDepService : BranchDepService, private _snackBar: MatSnackBar,
     private accountService : AccountService, private authService : AuthenticationService) { }
@@ -78,6 +81,30 @@ export class StudentComponent implements OnInit {
     });
     let instance = snackBar.instance;
     instance.title = "Congratulations!! you have now a profil"
+  }
+
+  selectImage(event){
+    this.selectedImg = event.target.files[0];
+    if(this.selectedImg.type.indexOf('image') < 0){
+      this.selectedImg = null;
+    }
+  }
+
+  upload(){
+    if(this.selectedImg){
+      this.studentService.uploadImage(this.selectedImg).subscribe(
+        event => {
+          if(event.type ===  HttpEventType.UploadProgress){
+            this.progress = Math.round((event.loaded/event.total)*100)
+          }
+          else if(event.type ===  HttpEventType.Response){
+            let resp : any = event.body;
+            this.student.image=resp.fileName;
+          }
+        },
+        err => console.error(err)
+      )
+    }
   }
 
 }

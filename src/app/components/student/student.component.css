@@ -6,3 +6,24 @@ mat-spinner{
 .submit_button{
     z-index: 1;
 }
+
+img{
+    padding-bottom: 10px;
+    position : relative; 
+    height: 90%; 
+    width: 90%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+.personal{
+    margin-top: 10px;
+    margin-left: 10px;
+}

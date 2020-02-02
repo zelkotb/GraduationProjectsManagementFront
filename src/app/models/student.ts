@@ -7,6 +7,7 @@ export class Student{
     phone : string;
     birthDay : string;
     branch : string;
+    image : string;
     graduationProject 
     account : Account;
 }

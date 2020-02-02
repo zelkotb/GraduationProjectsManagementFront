@@ -24,13 +24,13 @@ export class TokenInterceptor implements HttpInterceptor{
               }
             });
           }
-          if (!request.headers.has('Content-Type')) {
+          /*if (!request.headers.has('Content-Type')) {
             request = request.clone({
               setHeaders: {
                 'content-type': 'application/json'
               }
             });
-          }
+          }*/
           request = request.clone({
             headers: request.headers.set('Accept', 'application/json')
           });

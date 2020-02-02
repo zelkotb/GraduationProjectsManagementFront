@@ -21,6 +21,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 
 
@@ -48,7 +50,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
         MatDatepickerModule,
         MatNativeDateModule,
         MatSelectModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatProgressBarModule
     ],
     exports : [
         MatTableModule,
@@ -72,7 +75,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
         MatDatepickerModule,
         MatNativeDateModule,
         MatSelectModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatProgressBarModule
     ]
 
 })

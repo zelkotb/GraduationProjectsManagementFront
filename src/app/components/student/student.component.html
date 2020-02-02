@@ -1,37 +1,68 @@
 <div class="container col-md-6 p-4">
     <mat-card class="example-card">
-        <mat-card-header fxLayout="column" fxLayoutAlign="center center">
+        <mat-card-header class=" justify-content-center row">
             <mat-card-title>
                 Student informations
             </mat-card-title>
-        </mat-card-header><br>
+        </mat-card-header>
         <mat-card-content mat-dialog-content>
             <!-- name form-->
             <form fxLayout="column" #f="ngForm" (ngSubmit)="f.valid && saveStudent()">
-                <mat-form-field appearance="outline"> 
-                    <mat-label>Enter your Name here</mat-label>
-                    <input maxlength="30" [(ngModel)]="student.name" #n="ngModel" name="name" matInput placeholder="Name" required>
-                    <mat-icon matSuffix>person</mat-icon>
-                    <mat-hint align="end">{{n.value?.length || 0}}/30</mat-hint>
-                    <mat-error *ngIf="n.errors?.required">
-                        Name is <strong>required</strong>
-                    </mat-error>
-                </mat-form-field><br>
-                <mat-form-field appearance="outline">
-                    <mat-label>Enter your LastName here</mat-label>
-                    <input maxlength="30" [(ngModel)]="student.lastName" #l="ngModel" name="lastName" matInput placeholder="LastName" required>
-                    <mat-icon matSuffix>person</mat-icon>
-                    <mat-hint align="end">{{l.value?.length || 0}}/30</mat-hint>
-                    <mat-error *ngIf="l.errors?.required">
-                        lastName is <strong>required</strong>
-                    </mat-error>
-                </mat-form-field>
+                <div class="justify-content-center row">
+                    <div class="col personal"> 
+                        <mat-form-field appearance="outline"> 
+                            <mat-label>Enter your Name here</mat-label>
+                            <input maxlength="30" [(ngModel)]="student.name" #n="ngModel" name="name" matInput placeholder="Name" required>
+                            <mat-icon matSuffix>person</mat-icon>
+                            <mat-hint align="end">{{n.value?.length || 0}}/30</mat-hint>
+                            <mat-error *ngIf="n.errors?.required">
+                                Name is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field><br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Enter your LastName here</mat-label>
+                            <input maxlength="30" [(ngModel)]="student.lastName" #l="ngModel" name="lastName" matInput placeholder="LastName" required>
+                            <mat-icon matSuffix>person</mat-icon>
+                            <mat-hint align="end">{{l.value?.length || 0}}/30</mat-hint>
+                            <mat-error *ngIf="l.errors?.required">
+                                lastName is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="justify-content-center row col p-4"> 
+                        <div>
+                            <input [hidden]="true" #fileInput (change)="selectImage($event)" type="file" 
+                                class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                        </div>
+                        <div>
+                            <button matTooltip="upload a picture" (click)="fileInput.click()" mat-stroked-button (click)="upload()" type="button">
+                                <mat-icon matSuffix>add_photo_alternate</mat-icon>
+                            </button>
+                        </div>
+                        <div>
+                            <button mat-stroked-button (click)="upload()" type="button">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                    <div class="justify-content-center col">
+                        <div *ngIf="!student?.image"> 
+                            <img style="height: 160px; width: 160px;"  src="http://localhost:8080/students/uploads/photo-anonyme-de-profil-d-homme-d-affaires-57594504.jpg">
+                            <mat-progress-bar *ngIf="progress > 0 && progress < 100" mode="determinate" [value]="progress"></mat-progress-bar>
+                        </div>
+                        <div *ngIf="student?.image" class="col">
+                            <img style="height: 160px; width: 160px;" src="http://localhost:8080/students/uploads/{{student.image}}" alt="{{student.image}}">
+                            <mat-progress-bar *ngIf="progress > 0 && progress < 100" mode="determinate" [value]="progress"></mat-progress-bar>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="justify-content-center">
                     <mat-form-field class="col-6">
                         <span matPrefix>+212 &nbsp;</span>
-                        <input type="tel" maxlength="9"  minlength="9" [(ngModel)]="student.phone" #p="ngModel" name="phone" matInput placeholder="Phone" required>
+                        <input type="tel"  pattern="[0-9]+" maxlength="9"  minlength="9" [(ngModel)]="student.phone" #p="ngModel" name="phone" matInput placeholder="Phone" required>
                         <mat-icon matSuffix>phone_enabled</mat-icon>
-                        <mat-error *ngIf="p.errors?.minlength && !p.errors?.required">
+                        <mat-error *ngIf="(p.errors?.pattern || p.errors?.minlength) && !p.errors?.required">
                             Please enter a valid phone number which is 9 digits after the +212
                         </mat-error>
                         <mat-error *ngIf="p.errors?.required">
@@ -50,7 +81,7 @@
                             birthday is <strong>required</strong>
                         </mat-error>
                     </mat-form-field> 
-                </div><br>
+                </div>
                 <mat-form-field>
                 <mat-label>Select your Branch</mat-label>
                 <mat-select  [(ngModel)]="student.branch" #s="ngModel" name="select" required>
