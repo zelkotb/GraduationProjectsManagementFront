@@ -11,6 +11,7 @@ import { TrueModalComponent } from '../comp/true-modal/true-modal.component';
 import { ModalComponent } from '../comp/modal/modal.component';
 import { SnackBarComponent } from '../comp/snack-bar/snack-bar.component';
 import { HttpEventType } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -31,11 +32,19 @@ export class StudentComponent implements OnInit {
   progress = 0;
 
   constructor(private studentService : StudentService, private branchDepService : BranchDepService, private _snackBar: MatSnackBar,
-    private accountService : AccountService, private authService : AuthenticationService) { }
+    private accountService : AccountService, private authService : AuthenticationService, private router : Router) { }
 
   ngOnInit() {
     this.account = new Account();
     this.student = new Student();
+    this.studentService.doesAccountHaveStudent(this.authService.getSubFromToken()).subscribe(
+      resp => {
+        if(resp.itDoes){
+          this.router.navigate(['/gp'])
+        }
+      },
+      err =>  this.router.navigate(['/login'])
+    )
     this.branchDepService.getBranches().subscribe(
       resp => {this.branches = resp.branches},
       err => console.error(err)
@@ -68,9 +77,8 @@ export class StudentComponent implements OnInit {
     this.studentService.saveStudent(this.student).subscribe(
       (response) => {
         this.download=false;
+        this.router.navigate(['/gp'])
         this.openSnackBar();
-        console.log(response);
-
       }
     )
   }

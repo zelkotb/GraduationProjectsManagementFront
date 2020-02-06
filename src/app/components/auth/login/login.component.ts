@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
         this.download=false;
       },
       err => {
+        console.error(err)
         this.download=false;
         this.errorDialog.open(ModalComponent,{
           data : {error:"Login or password is incorrect"}

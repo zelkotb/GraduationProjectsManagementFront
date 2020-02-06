@@ -20,6 +20,7 @@ import { YesNoModalComponent } from './components/comp/yes-no-modal/yes-no-modal
 import { YesNoDeleteModalComponent } from './components/comp/yes-no-delete-modal/yes-no-delete-modal.component';
 import { StudentComponent } from './components/student/student.component';
 import { SnackBarComponent } from './components/comp/snack-bar/snack-bar.component';
+import { GraduationProjectComponent } from './components/graduation-project/graduation-project.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { SnackBarComponent } from './components/comp/snack-bar/snack-bar.compone
     YesNoDeleteModalComponent,
     StudentComponent,
     SnackBarComponent,
+    GraduationProjectComponent,
   ],
   imports: [
     BrowserModule,

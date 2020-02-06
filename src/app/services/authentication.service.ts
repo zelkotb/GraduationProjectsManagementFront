@@ -42,7 +42,20 @@ export class AuthenticationService {
       const BearerToken = res.headers.get("Authorization");
       const token =  BearerToken.replace('Bearer ', '');
       localStorage.setItem('token',token);
-      this.router.navigate(['/lists']);
+      let decodedToken =  this.helper.decodeToken(token);
+      console.log(decodedToken);
+      for (let i = 0; i< decodedToken.roles.length; i++) {
+        if(decodedToken.roles[i].authority == "admin"){
+          this.router.navigate(['/lists']);
+          return
+        }  
+      }
+      for (let i = 0; i< decodedToken.roles.length; i++) {
+        if(decodedToken.roles[i].authority == "user"){
+          this.router.navigate(['/student']);
+          return
+        }  
+      }
     }
   }
 
@@ -53,9 +66,10 @@ export class AuthenticationService {
 
   getSubFromToken(){
     let token = localStorage.getItem('token');
-    let decodedToken =  this.helper.decodeToken(token);
-    console.log(decodedToken);
-    return decodedToken.sub;
+    if(token){
+      let decodedToken =  this.helper.decodeToken(token);
+      return decodedToken.sub;
+    }
   }
 
   isLoggedIn(){
@@ -65,5 +79,6 @@ export class AuthenticationService {
     }
     return false;
   }
+
 
 }

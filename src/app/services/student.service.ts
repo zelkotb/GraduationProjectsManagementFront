@@ -13,10 +13,12 @@ const url = environment.url;
 })
 export class StudentService {
 
+  accountHasStudent : false;
+
   constructor(private http : HttpClient, private authService : AuthenticationService) { }
 
   getClients() : Observable<any> {
-    return this.http.get<any>(url+"students/").pipe(
+    return this.http.get<any>(url+"students").pipe(
       catchError(e => {
         return throwError(e);
       })
@@ -24,7 +26,7 @@ export class StudentService {
   }
 
   saveStudent(student : Student){
-    return this.http.post(url + "students", student , {observe : 'response'}).pipe(
+    return this.http.post(url + "students/register", student , {observe : 'response'}).pipe(
       catchError(e => {
         return throwError(e);
       })
@@ -38,6 +40,14 @@ export class StudentService {
       reportProgress : true
     })
     return this.http.request(req);
+  }
+
+  doesAccountHaveStudent(login){
+    return this.http.get<any>(url+"students/std/"+login).pipe(
+      catchError(e => {
+        return throwError(e);
+      })
+    )
   }
 
   
